@@ -65,12 +65,20 @@ export function Header() {
               </a>
             </div>
           ) : (
-            <a
-              href="/api/auth/signin"
-              className="rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
-            >
-              Sign in
-            </a>
+            <div className="flex items-center gap-2">
+              <a
+                href="/api/auth/signin"
+                className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              >
+                Sign in
+              </a>
+              <a
+                href="/api/auth/signin?screen_hint=sign-up"
+                className="rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+              >
+                Sign up
+              </a>
+            </div>
           )}
         </div>
       </nav>
