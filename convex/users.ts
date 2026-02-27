@@ -14,9 +14,8 @@ export const store = mutation({
       .unique();
 
     if (user !== null) {
-      if (user.name !== identity.name || user.email !== identity.email) {
+      if (user.email !== identity.email) {
         await ctx.db.patch(user._id, {
-          name: identity.name ?? user.name,
           email: identity.email ?? user.email,
           avatarUrl: identity.pictureUrl ?? user.avatarUrl,
         });
@@ -24,8 +23,12 @@ export const store = mutation({
       return user._id;
     }
 
+    // Derive a default username from the email (everything before @)
+    const email = identity.email ?? "";
+    const defaultUsername = email.split("@")[0] || "user";
+
     return await ctx.db.insert("users", {
-      name: identity.name ?? "Anonymous",
+      username: defaultUsername,
       email: identity.email,
       avatarUrl: identity.pictureUrl,
       tokenIdentifier: identity.tokenIdentifier,

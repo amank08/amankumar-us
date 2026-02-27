@@ -55,7 +55,7 @@ export function Header() {
           {isAuthenticated ? (
             <div className="flex items-center gap-3">
               <span className="text-sm text-zinc-500">
-                {user?.firstName ?? "User"}
+                {currentUser?.username ?? "User"}
               </span>
               <a
                 href="/api/auth/signout"
