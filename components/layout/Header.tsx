@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import { useConvexAuth, useQuery } from "convex/react";
-import { useAuth } from "@workos-inc/authkit-nextjs/components";
 import { api } from "@/convex/_generated/api";
 
 export function Header() {
   const { isAuthenticated } = useConvexAuth();
-  const { user } = useAuth();
   const currentUser = useQuery(
     api.users.currentUser,
     isAuthenticated ? {} : "skip"
