@@ -1,0 +1,50 @@
+name: Feature Request
+description: Request a new feature for amankumar.us
+labels: ["enhancement"]
+body:
+  - type: input
+    id: feature-name
+    attributes:
+      label: Feature Name
+      placeholder: e.g., Dark mode toggle
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What should this feature do?
+      placeholder: Describe the feature in a few sentences.
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-areas
+    attributes:
+      label: Pages / Components Affected
+      description: Which parts of the site does this touch?
+      placeholder: |
+        e.g.,
+        - app/page.tsx (home page)
+        - components/layout/Header.tsx
+        - New component needed
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - Frontend only
+        - Backend only (Convex)
+        - Full stack (frontend + backend)
+        - Styling / UI
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra-context
+    attributes:
+      label: Extra Context
+      description: Any references, screenshots, or additional notes?
