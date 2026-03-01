@@ -33,6 +33,7 @@ export const create = mutation({
   args: {
     postId: v.id("posts"),
     text: v.string(),
+    parentId: v.optional(v.id("comments")),
   },
   handler: async (ctx, args) => {
     const user = await requireAuth(ctx);
@@ -41,16 +42,26 @@ export const create = mutation({
     const post = await ctx.db.get(args.postId);
     if (!post) throw new Error("Post not found");
 
+    // If replying to a comment, verify parent exists and belongs to same post
+    if (args.parentId) {
+      const parent = await ctx.db.get(args.parentId);
+      if (!parent) throw new Error("Parent comment not found");
+      if (parent.postId !== args.postId) {
+        throw new Error("Parent comment belongs to a different post");
+      }
+    }
+
     return await ctx.db.insert("comments", {
       text: args.text,
       authorId: user._id,
       postId: args.postId,
+      parentId: args.parentId,
       createdAt: Date.now(),
     });
   },
 });
 
-/** Delete a comment. Only the comment author or an admin can delete. */
+/** Delete a comment and all its replies. Only the comment author or an admin can delete. */
 export const remove = mutation({
   args: { id: v.id("comments") },
   handler: async (ctx, args) => {
@@ -64,6 +75,20 @@ export const remove = mutation({
       throw new Error("Forbidden: you can only delete your own comments");
     }
 
-    await ctx.db.delete(args.id);
+    // Cascade delete: remove all child replies recursively
+    async function deleteWithReplies(commentId: typeof args.id) {
+      const replies = await ctx.db
+        .query("comments")
+        .withIndex("by_parent", (q) => q.eq("parentId", commentId))
+        .collect();
+
+      for (const reply of replies) {
+        await deleteWithReplies(reply._id);
+      }
+
+      await ctx.db.delete(commentId);
+    }
+
+    await deleteWithReplies(args.id);
   },
 });
