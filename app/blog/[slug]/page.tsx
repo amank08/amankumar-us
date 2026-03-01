@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { CommentSection } from "@/components/blog/CommentSection";
 import Link from "next/link";
 
 export default function BlogPostPage() {
@@ -78,6 +79,8 @@ export default function BlogPostPage() {
           <div className="whitespace-pre-wrap">{post.content}</div>
         </div>
       </article>
+
+      <CommentSection postId={post._id} />
     </div>
   );
 }
