@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useConvexAuth, useQuery } from "convex/react";
@@ -8,10 +9,12 @@ import { useSyncExternalStore } from "react";
 import { api } from "@/convex/_generated/api";
 
 const emptySubscribe = () => () => {};
+/** Hydration-safe hook that returns true only on the client after mount. */
 function useIsMounted() {
   return useSyncExternalStore(emptySubscribe, () => true, () => false);
 }
 
+/** Dark / light theme toggle button. */
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const mounted = useIsMounted();
@@ -61,6 +64,57 @@ function ThemeToggle() {
   );
 }
 
+/** Hamburger / X icon toggle for mobile menu. */
+function MenuButton({
+  open,
+  onClick,
+}: {
+  open: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="rounded-lg p-2 text-text-secondary hover:bg-surface hover:text-text-primary transition-colors md:hidden"
+      aria-label={open ? "Close menu" : "Open menu"}
+      aria-expanded={open}
+    >
+      {open ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-5 w-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18 18 6M6 6l12 12"
+          />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-5 w-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+/** Site-wide header with responsive navigation. */
 export function Header() {
   const { isAuthenticated } = useConvexAuth();
   const currentUser = useQuery(
@@ -68,6 +122,7 @@ export function Header() {
     isAuthenticated ? {} : "skip"
   );
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
     { href: "/blog", label: "Blog" },
@@ -75,47 +130,42 @@ export function Header() {
     { href: "/about", label: "About" },
   ];
 
+  if (currentUser?.isAdmin) {
+    navLinks.push({ href: "/admin", label: "Admin" });
+  }
+
+  const linkClass = (href: string) => {
+    const isActive = pathname === href || pathname.startsWith(href + "/");
+    return `rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+      isActive
+        ? "bg-accent-light text-accent"
+        : "text-text-secondary hover:bg-surface hover:text-text-primary"
+    }`;
+  };
+
+  const closeMobile = () => setMobileOpen(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      {/* Desktop + mobile top bar */}
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-semibold text-text-primary">
+        <Link
+          href="/"
+          className="text-lg font-semibold text-text-primary"
+          onClick={closeMobile}
+        >
           Aman Kumar
         </Link>
 
-        <div className="flex items-center gap-1">
-          {navLinks.map(({ href, label }) => {
-            const isActive =
-              pathname === href || pathname.startsWith(href + "/");
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-accent-light text-accent"
-                    : "text-text-secondary hover:bg-surface hover:text-text-primary"
-                }`}
-              >
-                {label}
-              </Link>
-            );
-          })}
-
-          {currentUser?.isAdmin && (
-            <Link
-              href="/admin"
-              className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                pathname.startsWith("/admin")
-                  ? "bg-accent-light text-accent"
-                  : "text-text-secondary hover:bg-surface hover:text-text-primary"
-              }`}
-            >
-              Admin
+        {/* Desktop nav */}
+        <div className="hidden items-center gap-1 md:flex">
+          {navLinks.map(({ href, label }) => (
+            <Link key={href} href={href} className={linkClass(href)}>
+              {label}
             </Link>
-          )}
+          ))}
 
           <div className="mx-2 h-5 w-px bg-border" />
-
           <ThemeToggle />
 
           {isAuthenticated ? (
@@ -147,7 +197,65 @@ export function Header() {
             </div>
           )}
         </div>
+
+        {/* Mobile: theme toggle + hamburger */}
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <MenuButton
+            open={mobileOpen}
+            onClick={() => setMobileOpen(!mobileOpen)}
+          />
+        </div>
       </nav>
+
+      {/* Mobile dropdown menu */}
+      {mobileOpen && (
+        <div className="border-t border-border bg-background px-6 pb-4 md:hidden">
+          <div className="flex flex-col gap-1 py-2">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={linkClass(href) + " block"}
+                onClick={closeMobile}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="border-t border-border pt-3">
+            {isAuthenticated ? (
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-text-muted">
+                  {currentUser?.username ?? "User"}
+                </span>
+                <a
+                  href="/api/auth/signout"
+                  className="rounded-md bg-surface px-3 py-1.5 text-sm font-medium text-text-secondary transition-colors hover:bg-surface-hover"
+                >
+                  Sign out
+                </a>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <a
+                  href="/api/auth/signin"
+                  className="flex-1 rounded-md border border-border px-3 py-1.5 text-center text-sm font-medium text-text-secondary transition-colors hover:bg-surface"
+                >
+                  Sign in
+                </a>
+                <a
+                  href="/api/auth/signin?screen_hint=sign-up"
+                  className="flex-1 rounded-md bg-accent px-3 py-1.5 text-center text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+                >
+                  Sign up
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
