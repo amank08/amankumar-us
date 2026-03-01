@@ -61,6 +61,79 @@ export function LogoD({ className = "" }: LogoProps) {
   );
 }
 
+/** Option E — Geometric sans "AK" with sharp angles, no curves */
+export function LogoE({ className = "" }: LogoProps) {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={`inline-block ${className}`} aria-hidden="true">
+      <rect width="40" height="40" rx="10" className="fill-accent" />
+      <path
+        d="M9 28L14.5 12H17.5L23 28M11.5 22H20.5"
+        stroke="white" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" fill="none"
+      />
+      <path
+        d="M25 12V28M25 20L32 12M25 20L32 28"
+        stroke="white" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" fill="none"
+      />
+    </svg>
+  );
+}
+
+/** Option F — Stacked monogram with "A" on top, "K" below, compact square feel */
+export function LogoF({ className = "" }: LogoProps) {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={`inline-block ${className}`} aria-hidden="true">
+      <rect width="40" height="40" rx="10" className="fill-accent" />
+      <path
+        d="M14 20L20 8L26 20M16 17H24"
+        stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"
+      />
+      <path
+        d="M14 33V21M14 27L22 21M14 27L22 33"
+        stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"
+      />
+    </svg>
+  );
+}
+
+/** Option G — Rounded bubble "ak" with soft circular letterforms */
+export function LogoG({ className = "" }: LogoProps) {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={`inline-block ${className}`} aria-hidden="true">
+      <rect width="40" height="40" rx="10" className="fill-accent" />
+      <circle cx="14" cy="21" r="4.5" stroke="white" strokeWidth="2" fill="none" />
+      <path
+        d="M18.5 15V27"
+        stroke="white" strokeWidth="2" strokeLinecap="round" fill="none"
+      />
+      <path
+        d="M23 27V13M23 21.5L28.5 15M23 21.5L29 27"
+        stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"
+      />
+    </svg>
+  );
+}
+
+/** Option H — Ligature "ak" connected with a shared stroke, modern typographic */
+export function LogoH({ className = "" }: LogoProps) {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={`inline-block ${className}`} aria-hidden="true">
+      <rect width="40" height="40" rx="10" className="fill-accent" />
+      <path
+        d="M17 17C15.5 14.5 11 14 10 17C9 20 10.5 24 13 24C15.5 24 17 21 17 19V27"
+        stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"
+      />
+      <path
+        d="M17 13V27"
+        stroke="white" strokeWidth="2" strokeLinecap="round" fill="none"
+      />
+      <path
+        d="M22 27V13M22 20.5L28 13M22 20.5L28.5 27"
+        stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"
+      />
+    </svg>
+  );
+}
+
 /** Default export — currently uses Option A. Change this after picking a favorite. */
 export function Logo({ className = "" }: LogoProps) {
   return <LogoA className={className} />;

@@ -1,4 +1,4 @@
-import { LogoA, LogoB, LogoC, LogoD } from "@/components/ui/Logo";
+import { LogoA, LogoB, LogoC, LogoD, LogoE, LogoF, LogoG, LogoH } from "@/components/ui/Logo";
 
 /** Temporary page to compare logo options — delete after choosing. */
 export default function LogoPreview() {
@@ -13,6 +13,10 @@ export default function LogoPreview() {
           { name: "B — Bold monoline", Component: LogoB },
           { name: "C — Minimal lowercase", Component: LogoC },
           { name: "D — Calligraphic swash", Component: LogoD },
+          { name: "E — Geometric sans", Component: LogoE },
+          { name: "F — Stacked monogram", Component: LogoF },
+          { name: "G — Rounded bubble", Component: LogoG },
+          { name: "H — Ligature modern", Component: LogoH },
         ].map(({ name, Component }) => (
           <div key={name} className="flex flex-col items-center gap-3">
             <Component className="h-20 w-20" />
