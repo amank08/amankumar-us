@@ -15,6 +15,15 @@ export const getByPostId = query({
     // Join with users table to include username and avatarUrl
     const commentsWithAuthors = await Promise.all(
       comments.map(async (comment) => {
+        // Skip author lookup for tombstoned comments
+        if (comment.deletedAt) {
+          return {
+            ...comment,
+            authorUsername: "[deleted]",
+            authorAvatarUrl: null,
+            authorIsAdmin: false,
+          };
+        }
         const author = await ctx.db.get(comment.authorId);
         return {
           ...comment,
@@ -62,7 +71,8 @@ export const create = mutation({
   },
 });
 
-/** Delete a comment and all its replies. Only the comment author or an admin can delete. */
+/** Delete a comment. If it has replies, soft-delete (tombstone) to preserve the thread.
+ *  If it's a leaf, hard-delete and prune any orphaned tombstone ancestors. */
 export const remove = mutation({
   args: { id: v.id("comments") },
   handler: async (ctx, args) => {
@@ -76,27 +86,41 @@ export const remove = mutation({
       throw new Error("Forbidden: you can only delete your own comments");
     }
 
-    // Iterative cascade delete: collect all descendants, then delete in reverse
-    const toVisit: (typeof args.id)[] = [args.id];
-    const postOrder: (typeof args.id)[] = [];
+    // Check if this comment has any replies
+    const hasReplies = await ctx.db
+      .query("comments")
+      .withIndex("by_parent", (q) => q.eq("parentId", args.id))
+      .first();
 
-    while (toVisit.length > 0) {
-      const currentId = toVisit.pop()!;
-      postOrder.push(currentId);
+    if (hasReplies !== null) {
+      // Has children → soft delete (tombstone): keep the row so the thread is preserved
+      await ctx.db.patch(args.id, {
+        deletedAt: Date.now(),
+        text: "[deleted]",
+      });
+    } else {
+      // Leaf node → hard delete, then prune orphaned tombstone ancestors
+      await ctx.db.delete(args.id);
 
-      const replies = await ctx.db
-        .query("comments")
-        .withIndex("by_parent", (q) => q.eq("parentId", currentId))
-        .collect();
+      // Walk up the ancestor chain pruning unnecessary tombstones
+      let ancestorId = comment.parentId;
+      while (ancestorId) {
+        const ancestor = await ctx.db.get(ancestorId);
+        if (!ancestor || !ancestor.deletedAt) break;
 
-      for (const reply of replies) {
-        toVisit.push(reply._id);
+        // Does this tombstone ancestor still have any remaining children?
+        const remainingSibling = await ctx.db
+          .query("comments")
+          .withIndex("by_parent", (q) => q.eq("parentId", ancestorId!))
+          .first();
+
+        if (remainingSibling !== null) break;
+
+        // Ancestor is a tombstone with no children — prune it
+        const nextAncestorId = ancestor.parentId;
+        await ctx.db.delete(ancestorId);
+        ancestorId = nextAncestorId;
       }
-    }
-
-    // Delete in reverse (children before parents)
-    for (let i = postOrder.length - 1; i >= 0; i--) {
-      await ctx.db.delete(postOrder[i]);
     }
   },
 });
