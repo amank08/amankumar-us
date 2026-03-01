@@ -48,8 +48,16 @@ export default defineSchema({
     text: v.string(),
     authorId: v.id("users"),
     postId: v.id("posts"),
+    parentId: v.optional(v.id("comments")),
     createdAt: v.number(),
   })
     .index("by_post", ["postId", "createdAt"])
-    .index("by_author", ["authorId"]),
+    .index("by_author", ["authorId"])
+    .index("by_parent", ["parentId"]),
+
+  about: defineTable({
+    key: v.literal("singleton"),
+    content: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
 });
