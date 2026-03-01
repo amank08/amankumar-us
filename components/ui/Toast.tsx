@@ -66,7 +66,7 @@ export function ToastProvider() {
   if (!toast.visible) return null;
 
   return (
-    <div className="fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 animate-fade-in-up">
+    <div className="fixed top-20 right-6 z-[100] animate-fade-in-up">
       <div className="flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-3 shadow-lg">
         <svg
           xmlns="http://www.w3.org/2000/svg"
