@@ -14,83 +14,92 @@ export default function Home() {
   const featuredProjects = projects?.slice(0, 3);
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      {/* Hero */}
-      <section className="mb-20">
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-5xl">
-          Hey, I&apos;m Aman Kumar
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-          Welcome to my corner of the internet. I write about software
-          engineering, share projects I&apos;m working on, and think out loud.
-        </p>
-        <div className="mt-6 flex gap-4">
-          <Link
-            href="/projects"
-            className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
-          >
-            View Projects
-          </Link>
-          <Link
-            href="/blog"
-            className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-          >
-            Read Blog
-          </Link>
+    <>
+      {/* Full-width gradient hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-hero-from via-hero-via to-hero-to">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.07)_1px,transparent_0)] bg-[length:24px_24px]" />
+
+        <div className="relative mx-auto max-w-4xl px-6 py-24 sm:py-32">
+          <h1 className="animate-fade-in-up text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Hey, I&apos;m Aman Kumar
+          </h1>
+          <p className="animate-fade-in-up mt-6 max-w-2xl text-lg text-blue-100/80 [animation-delay:100ms]">
+            Welcome to my corner of the internet. I write about software
+            engineering, share projects I&apos;m working on, and think out loud.
+          </p>
+          <div className="animate-fade-in-up mt-8 flex gap-4 [animation-delay:200ms]">
+            <Link
+              href="/projects"
+              className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-blue-700 shadow-lg transition-colors hover:bg-blue-50"
+            >
+              View Projects
+            </Link>
+            <Link
+              href="/blog"
+              className="rounded-lg border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+            >
+              Read Blog
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Recent Posts */}
-      <section className="mb-16">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
-            Recent Posts
-          </h2>
-          <Link
-            href="/blog"
-            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          >
-            View all &rarr;
-          </Link>
-        </div>
-        {recentPosts === undefined ? (
-          <p className="text-zinc-500">Loading...</p>
-        ) : recentPosts.length === 0 ? (
-          <p className="text-zinc-500">No posts yet. Check back soon!</p>
-        ) : (
-          <div className="space-y-8">
-            {recentPosts.map((post) => (
-              <PostCard key={post._id} post={post} />
-            ))}
+      {/* Content sections */}
+      <div className="mx-auto max-w-4xl px-6 py-16">
+        {/* Recent Posts */}
+        <section className="mb-16">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-semibold text-text-primary">
+              Recent Posts
+            </h2>
+            <Link
+              href="/blog"
+              className="text-sm text-accent transition-colors hover:text-accent-hover"
+            >
+              View all &rarr;
+            </Link>
           </div>
-        )}
-      </section>
+          {recentPosts === undefined ? (
+            <p className="text-text-muted">Loading...</p>
+          ) : recentPosts.length === 0 ? (
+            <p className="text-text-muted">No posts yet. Check back soon!</p>
+          ) : (
+            <div className="space-y-1">
+              {recentPosts.map((post) => (
+                <PostCard key={post._id} post={post} />
+              ))}
+            </div>
+          )}
+        </section>
 
-      {/* Featured Projects */}
-      <section>
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
-            Projects
-          </h2>
-          <Link
-            href="/projects"
-            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          >
-            View all &rarr;
-          </Link>
-        </div>
-        {featuredProjects === undefined ? (
-          <p className="text-zinc-500">Loading...</p>
-        ) : featuredProjects.length === 0 ? (
-          <p className="text-zinc-500">No projects yet. Check back soon!</p>
-        ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project._id} project={project} />
-            ))}
+        {/* Featured Projects */}
+        <section>
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-semibold text-text-primary">
+              Projects
+            </h2>
+            <Link
+              href="/projects"
+              className="text-sm text-accent transition-colors hover:text-accent-hover"
+            >
+              View all &rarr;
+            </Link>
           </div>
-        )}
-      </section>
-    </div>
+          {featuredProjects === undefined ? (
+            <p className="text-text-muted">Loading...</p>
+          ) : featuredProjects.length === 0 ? (
+            <p className="text-text-muted">
+              No projects yet. Check back soon!
+            </p>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {featuredProjects.map((project) => (
+                <ProjectCard key={project._id} project={project} />
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+    </>
   );
 }

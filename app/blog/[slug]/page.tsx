@@ -12,7 +12,7 @@ export default function BlogPostPage() {
   if (post === undefined) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <p className="text-zinc-500">Loading...</p>
+        <p className="text-text-muted">Loading...</p>
       </div>
     );
   }
@@ -20,12 +20,12 @@ export default function BlogPostPage() {
   if (post === null) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        <h1 className="text-2xl font-bold text-text-primary">
           Post not found
         </h1>
         <Link
           href="/blog"
-          className="mt-4 inline-block text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          className="mt-4 inline-block text-sm text-accent transition-colors hover:text-accent-hover"
         >
           &larr; Back to blog
         </Link>
@@ -42,29 +42,29 @@ export default function BlogPostPage() {
     : null;
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
+    <div className="animate-fade-in-up mx-auto max-w-3xl px-6 py-16">
       <Link
         href="/blog"
-        className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+        className="text-sm text-accent transition-colors hover:text-accent-hover"
       >
         &larr; Back to blog
       </Link>
 
       <article className="mt-8">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
             {post.title}
           </h1>
           <div className="mt-4 flex items-center gap-3">
             {date && (
-              <time className="text-sm text-zinc-500">{date}</time>
+              <time className="text-sm text-text-muted">{date}</time>
             )}
             {post.tags && post.tags.length > 0 && (
               <div className="flex gap-2">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                    className="rounded-full bg-accent-light px-2.5 py-0.5 text-xs font-medium text-accent"
                   >
                     {tag}
                   </span>
@@ -75,8 +75,6 @@ export default function BlogPostPage() {
         </header>
 
         <div className="prose prose-zinc max-w-none dark:prose-invert">
-          {/* For now, render content as plain text.
-              TODO: Add a markdown renderer (e.g., react-markdown) */}
           <div className="whitespace-pre-wrap">{post.content}</div>
         </div>
       </article>
