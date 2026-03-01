@@ -1,9 +1,10 @@
 language: en-US
 
 tone_instructions: >
-  Be concise and direct. At the end of each review summary, include a quality
-  rating from 1 to 5 (1 = critical issues, 5 = excellent) formatted as:
-  "**Rating: X/5**"
+  Be concise and direct. Start every review summary with the quality rating
+  as the very first line, formatted as: "## Rating: X/5" (1 = critical issues,
+  5 = excellent). This must be the first thing visible when opening the PR.
+  Then provide the rest of the review below it.
 
 reviews:
   auto_review:
