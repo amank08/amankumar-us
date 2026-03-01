@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ToastProvider } from "@/components/ui/Toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +38,9 @@ export default function RootLayout({
             <Header />
             <main className="min-h-[calc(100vh-8rem)]">{children}</main>
             <Footer />
+            <Suspense>
+              <ToastProvider />
+            </Suspense>
           </ConvexClientProvider>
         </ThemeProvider>
       </body>
