@@ -11,19 +11,23 @@ export function AboutForm({ initialContent }: { initialContent: string }) {
   const [content, setContent] = useState(initialContent);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   /** Handle form submission — upserts the singleton about document. */
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     setSaved(false);
+    setError(null);
 
     try {
       await updateAbout({ content });
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
-    } catch (error) {
-      console.error("Failed to save about content:", error);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Save failed. Please try again.";
+      setError(message);
     } finally {
       setSaving(false);
     }
@@ -31,6 +35,9 @@ export function AboutForm({ initialContent }: { initialContent: string }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+      )}
       <div>
         <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
           About Content

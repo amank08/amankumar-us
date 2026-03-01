@@ -166,15 +166,15 @@ function Comment({
             {isAuthenticated && (
               <button
                 onClick={() => setShowReplyForm(!showReplyForm)}
-                className="rounded p-1 text-xs text-text-muted opacity-0 transition-all hover:text-accent group-hover:opacity-100"
+                className="rounded p-1 text-xs text-text-muted opacity-0 transition-all hover:text-accent group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
               >
-                Reply
+                Reply{comment.replies.length > 0 ? ` (${comment.replies.length})` : ""}
               </button>
             )}
             {canDelete && (
               <button
                 onClick={() => onDelete(comment._id)}
-                className="rounded p-1 text-text-muted opacity-0 transition-all hover:bg-surface hover:text-red-500 group-hover:opacity-100"
+                className="rounded p-1 text-text-muted opacity-0 transition-all hover:bg-surface hover:text-red-500 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
                 aria-label="Delete comment"
               >
                 <svg

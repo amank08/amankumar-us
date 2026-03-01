@@ -56,7 +56,8 @@ export default defineSchema({
     .index("by_parent", ["parentId"]),
 
   about: defineTable({
+    key: v.literal("singleton"),
     content: v.string(),
     updatedAt: v.number(),
-  }),
+  }).index("by_key", ["key"]),
 });

@@ -75,20 +75,27 @@ export const remove = mutation({
       throw new Error("Forbidden: you can only delete your own comments");
     }
 
-    // Cascade delete: remove all child replies recursively
-    async function deleteWithReplies(commentId: typeof args.id) {
+    // Iterative cascade delete: collect all descendants, then delete in reverse
+    const toVisit: (typeof args.id)[] = [args.id];
+    const postOrder: (typeof args.id)[] = [];
+
+    while (toVisit.length > 0) {
+      const currentId = toVisit.pop()!;
+      postOrder.push(currentId);
+
       const replies = await ctx.db
         .query("comments")
-        .withIndex("by_parent", (q) => q.eq("parentId", commentId))
+        .withIndex("by_parent", (q) => q.eq("parentId", currentId))
         .collect();
 
       for (const reply of replies) {
-        await deleteWithReplies(reply._id);
+        toVisit.push(reply._id);
       }
-
-      await ctx.db.delete(commentId);
     }
 
-    await deleteWithReplies(args.id);
+    // Delete in reverse (children before parents)
+    for (let i = postOrder.length - 1; i >= 0; i--) {
+      await ctx.db.delete(postOrder[i]);
+    }
   },
 });

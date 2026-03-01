@@ -6,7 +6,10 @@ import { requireAdmin } from "./lib/auth";
 export const get = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("about").first();
+    return await ctx.db
+      .query("about")
+      .withIndex("by_key", (q) => q.eq("key", "singleton"))
+      .unique();
   },
 });
 
@@ -18,7 +21,10 @@ export const update = mutation({
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
 
-    const existing = await ctx.db.query("about").first();
+    const existing = await ctx.db
+      .query("about")
+      .withIndex("by_key", (q) => q.eq("key", "singleton"))
+      .unique();
 
     if (existing) {
       await ctx.db.patch(existing._id, {
@@ -27,6 +33,7 @@ export const update = mutation({
       });
     } else {
       await ctx.db.insert("about", {
+        key: "singleton" as const,
         content: args.content,
         updatedAt: Date.now(),
       });
