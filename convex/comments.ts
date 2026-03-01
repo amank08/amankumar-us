@@ -20,6 +20,7 @@ export const getByPostId = query({
           ...comment,
           authorUsername: author?.username ?? "Deleted user",
           authorAvatarUrl: author?.avatarUrl ?? null,
+          authorIsAdmin: author?.isAdmin ?? false,
         };
       })
     );
