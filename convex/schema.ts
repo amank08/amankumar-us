@@ -50,6 +50,7 @@ export default defineSchema({
     postId: v.id("posts"),
     parentId: v.optional(v.id("comments")),
     createdAt: v.number(),
+    deletedAt: v.optional(v.number()),
   })
     .index("by_post", ["postId", "createdAt"])
     .index("by_author", ["authorId"])
