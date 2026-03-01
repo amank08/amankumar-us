@@ -129,6 +129,7 @@ export function Header() {
     { href: "/blog", label: "Blog" },
     { href: "/projects", label: "Projects" },
     { href: "/about", label: "About" },
+    { href: "/logo-preview", label: "Logos" }, // TODO: remove after choosing logo
   ];
 
   if (currentUser?.isAdmin) {
