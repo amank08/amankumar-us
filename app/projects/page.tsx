@@ -3,20 +3,23 @@
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 
 export default function ProjectsPage() {
   const projects = useQuery(api.projects.listPublished);
 
   return (
-    <div className="animate-fade-in-up mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-3xl font-bold tracking-tight text-text-primary">
-        Projects
-      </h1>
-      <p className="mt-2 text-text-secondary">
-        Things I&apos;ve built and worked on.
-      </p>
+    <div className="mx-auto max-w-5xl px-6 py-20">
+      <AnimateOnScroll variant="fade-up">
+        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+          Projects
+        </h1>
+        <p className="mt-2 text-text-secondary">
+          Things I&apos;ve built and worked on.
+        </p>
+      </AnimateOnScroll>
 
-      <div className="mt-10">
+      <AnimateOnScroll variant="slide-up" delay={100} className="mt-10">
         {projects === undefined ? (
           <p className="text-text-muted">Loading...</p>
         ) : projects.length === 0 ? (
@@ -30,7 +33,7 @@ export default function ProjectsPage() {
             ))}
           </div>
         )}
-      </div>
+      </AnimateOnScroll>
     </div>
   );
 }

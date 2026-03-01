@@ -1,53 +1,32 @@
 @import "tailwindcss";
 
-/* Switch dark: variant from media query to class-based */
+/* Keep dark: variant for admin page backward compat (they use dark: prefixed classes) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Design Tokens */
+/* ── Dark-only Design Tokens ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050508;
+  --foreground: #f0f0f5;
 
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-light: #dbeafe;
-  --accent-muted: #3b82f6;
+  --accent: #4f8fff;
+  --accent-hover: #70a5ff;
+  --accent-light: #0f1f3a;
+  --accent-muted: #3b6fd4;
+  --accent-glow: rgba(79, 143, 255, 0.15);
 
-  --surface: #f4f4f5;
-  --surface-hover: #e4e4e7;
-  --border: #e4e4e7;
-  --border-hover: #a1a1aa;
+  --surface: #0e0e14;
+  --surface-hover: #16161f;
+  --surface-alt: #111118;
+  --border: #1a1a24;
+  --border-hover: #2a2a3a;
 
-  --text-primary: #18181b;
-  --text-secondary: #52525b;
-  --text-muted: #71717a;
+  --text-primary: #f0f0f5;
+  --text-secondary: #9898a8;
+  --text-muted: #5e5e70;
 
-  --hero-from: #1e3a5f;
-  --hero-via: #1e40af;
-  --hero-to: #2563eb;
-}
-
-.dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-
-  --accent: #3b82f6;
-  --accent-hover: #60a5fa;
-  --accent-light: #1e3a5f;
-  --accent-muted: #2563eb;
-
-  --surface: #18181b;
-  --surface-hover: #27272a;
-  --border: #27272a;
-  --border-hover: #52525b;
-
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-
-  --hero-from: #0c1929;
-  --hero-via: #1e3a5f;
-  --hero-to: #1d4ed8;
+  --hero-from: #050510;
+  --hero-via: #0a1a3a;
+  --hero-to: #1a3a6a;
 }
 
 @theme inline {
@@ -57,8 +36,10 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-light: var(--accent-light);
   --color-accent-muted: var(--accent-muted);
+  --color-accent-glow: var(--accent-glow);
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
+  --color-surface-alt: var(--surface-alt);
   --color-border: var(--border);
   --color-border-hover: var(--border-hover);
   --color-text-primary: var(--text-primary);
@@ -77,14 +58,24 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Smooth theme transition */
-*,
-*::before,
-*::after {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+/* ── Prose overrides (always dark) ── */
+.prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--accent);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-code: var(--accent);
+  --tw-prose-pre-bg: var(--surface);
+  --tw-prose-pre-code: var(--text-primary);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-hr: var(--border);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
 }
 
-/* Fade-in animation */
+/* ── Animations ── */
+
+/* Page-load fade in */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -98,4 +89,80 @@ body {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.5s ease-out both;
+}
+
+/* Cinematic reveal: scale up from 0.95 */
+@keyframes cinematic-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-cinematic-reveal {
+  animation: cinematic-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Scroll-triggered slide up */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Hero text reveal with blur */
+@keyframes text-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-text-reveal {
+  animation: text-reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Scroll indicator bounce */
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-scroll-bounce {
+  animation: scroll-bounce 2s ease-in-out infinite;
 }
