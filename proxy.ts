@@ -11,7 +11,6 @@ export default authkitMiddleware({
       "/projects",
       "/projects/(.*)",
       "/callback",
-      "/api/auth/(.*)",
     ],
   },
 });
