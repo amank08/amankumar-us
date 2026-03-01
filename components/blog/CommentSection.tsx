@@ -17,6 +17,7 @@ type CommentWithAuthor = {
   createdAt: number;
   authorUsername: string;
   authorAvatarUrl: string | null;
+  authorIsAdmin: boolean;
 };
 
 /** Tree node — a comment plus its nested replies. */
@@ -157,6 +158,11 @@ function Comment({
             <span className="text-sm font-medium text-text-primary">
               {comment.authorUsername}
             </span>
+            {comment.authorIsAdmin && (
+              <span className="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-semibold uppercase text-white">
+                Admin
+              </span>
+            )}
             <span className="text-xs text-text-muted">
               {formatDate(comment.createdAt)}
             </span>

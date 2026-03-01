@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { CommentSection } from "@/components/blog/CommentSection";
+import { MarkdownContent } from "@/components/blog/MarkdownContent";
 import Link from "next/link";
 
 export default function BlogPostPage() {
@@ -75,9 +76,7 @@ export default function BlogPostPage() {
           </div>
         </header>
 
-        <div className="prose prose-zinc max-w-none dark:prose-invert">
-          <div className="whitespace-pre-wrap">{post.content}</div>
-        </div>
+        <MarkdownContent content={post.content} />
       </article>
 
       <CommentSection postId={post._id} />
