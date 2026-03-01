@@ -152,11 +152,11 @@ export function Header() {
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-semibold text-text-primary"
+          className="text-text-primary"
           onClick={closeMobile}
+          aria-label="Home"
         >
-          <Logo className="h-8 w-8" />
-          <span className="hidden sm:inline">Aman Kumar</span>
+          <Logo className="h-9 w-9" />
         </Link>
 
         {/* Desktop nav */}
