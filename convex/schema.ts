@@ -43,4 +43,13 @@ export default defineSchema({
   })
     .index("by_slug", ["slug"])
     .index("by_published", ["isPublished", "sortOrder"]),
+
+  comments: defineTable({
+    text: v.string(),
+    authorId: v.id("users"),
+    postId: v.id("posts"),
+    createdAt: v.number(),
+  })
+    .index("by_post", ["postId", "createdAt"])
+    .index("by_author", ["authorId"]),
 });

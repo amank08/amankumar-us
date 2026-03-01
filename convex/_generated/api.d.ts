@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as comments from "../comments.js";
 import type * as lib_auth from "../lib/auth.js";
 import type * as posts from "../posts.js";
 import type * as projects from "../projects.js";
@@ -20,6 +21,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  comments: typeof comments;
   "lib/auth": typeof lib_auth;
   posts: typeof posts;
   projects: typeof projects;
