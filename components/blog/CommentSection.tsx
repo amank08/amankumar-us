@@ -6,6 +6,7 @@ import { useConvexAuth, useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
+/** Comment section for a blog post. Shows a comment form (auth-gated) and a list of comments. */
 export function CommentSection({ postId }: { postId: Id<"posts"> }) {
   const { isAuthenticated } = useConvexAuth();
   const currentUser = useQuery(

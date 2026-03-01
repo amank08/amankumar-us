@@ -2,6 +2,7 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./lib/auth";
 
+/** Fetch all comments for a post, ordered by creation time, with author info joined. */
 export const getByPostId = query({
   args: { postId: v.id("posts") },
   handler: async (ctx, args) => {
@@ -27,6 +28,7 @@ export const getByPostId = query({
   },
 });
 
+/** Create a new comment on a blog post. Requires authentication. */
 export const create = mutation({
   args: {
     postId: v.id("posts"),
@@ -48,6 +50,7 @@ export const create = mutation({
   },
 });
 
+/** Delete a comment. Only the comment author or an admin can delete. */
 export const remove = mutation({
   args: { id: v.id("comments") },
   handler: async (ctx, args) => {
