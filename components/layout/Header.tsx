@@ -7,6 +7,7 @@ import { useConvexAuth, useQuery } from "convex/react";
 import { useTheme } from "next-themes";
 import { useSyncExternalStore } from "react";
 import { api } from "@/convex/_generated/api";
+import { Logo } from "@/components/ui/Logo";
 
 const emptySubscribe = () => () => {};
 /** Hydration-safe hook that returns true only on the client after mount. */
@@ -151,10 +152,11 @@ export function Header() {
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="text-lg font-semibold text-text-primary"
+          className="text-text-primary"
           onClick={closeMobile}
+          aria-label="Home"
         >
-          Aman Kumar
+          <Logo className="h-9 w-9" />
         </Link>
 
         {/* Desktop nav */}
