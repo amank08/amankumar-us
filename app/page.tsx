@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { LogoA, LogoB, LogoC, LogoD, LogoE, LogoF, LogoG, LogoH } from "@/components/ui/Logo";
 import { PostCard } from "@/components/blog/PostCard";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 
@@ -42,38 +41,6 @@ export default function Home() {
               Read Blog
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Logo Options — temporary, remove after choosing */}
-      <section className="mx-auto max-w-4xl px-6 pt-12 pb-4">
-        <h2 className="mb-2 text-lg font-semibold text-text-primary">
-          Pick a logo
-        </h2>
-        <p className="mb-6 text-sm text-text-muted">
-          Which one should we keep? Tell me A, B, C, or D.
-        </p>
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {[
-            { name: "A — Flowing script", Component: LogoA },
-            { name: "B — Bold monoline", Component: LogoB },
-            { name: "C — Minimal lowercase", Component: LogoC },
-            { name: "D — Calligraphic swash", Component: LogoD },
-            { name: "E — Geometric sans", Component: LogoE },
-            { name: "F — Stacked monogram", Component: LogoF },
-            { name: "G — Rounded bubble", Component: LogoG },
-            { name: "H — Ligature modern", Component: LogoH },
-          ].map(({ name, Component }) => (
-            <div
-              key={name}
-              className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface/50 p-4 transition-colors hover:border-accent/50"
-            >
-              <Component className="h-16 w-16" />
-              <span className="text-center text-xs font-medium text-text-secondary">
-                {name}
-              </span>
-            </div>
-          ))}
         </div>
       </section>
 
