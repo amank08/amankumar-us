@@ -166,3 +166,20 @@ body {
 .animate-scroll-bounce {
   animation: scroll-bounce 2s ease-in-out infinite;
 }
+
+/* ── Accessibility: respect reduced-motion preference ── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-cinematic-reveal,
+  .animate-slide-up,
+  .animate-text-reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .animate-scroll-bounce {
+    animation: none !important;
+  }
+}

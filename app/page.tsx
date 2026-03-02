@@ -19,14 +19,7 @@ export default function Home() {
       {/* ── Full-viewport cinematic hero ── */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
         {/* Animated gradient background */}
-        <div
-          className="absolute inset-0 bg-[length:200%_200%]"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, var(--hero-from) 0%, var(--hero-via) 40%, var(--hero-to) 70%, var(--hero-via) 100%)",
-            animation: "gradient-shift 8s ease infinite",
-          }}
-        />
+        <div className="absolute inset-0 bg-[length:200%_200%] bg-[linear-gradient(135deg,var(--hero-from)_0%,var(--hero-via)_40%,var(--hero-to)_70%,var(--hero-via)_100%)] animate-[gradient-shift_8s_ease_infinite]" />
 
         {/* Dot grid overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-[length:32px_32px]" />

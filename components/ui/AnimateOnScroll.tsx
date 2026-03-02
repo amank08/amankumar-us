@@ -35,7 +35,7 @@ export function AnimateOnScroll({
 
   return (
     <Tag
-      ref={ref}
+      ref={ref as React.Ref<HTMLDivElement>}
       className={`${isInView ? variantClass[variant] : "opacity-0"} ${className}`}
       style={delay > 0 ? { animationDelay: `${delay}ms` } : undefined}
     >
