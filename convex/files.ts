@@ -19,10 +19,15 @@ export const getUrl = query({
   },
 });
 
-/** Batch-resolve storage IDs to URLs. Returns a record of id → url|null. */
+/** Batch-resolve storage IDs to URLs. Returns a record of id → url|null. Max 50 IDs per call. */
+const MAX_BATCH = 50;
+
 export const getUrls = query({
   args: { storageIds: v.array(v.id("_storage")) },
   handler: async (ctx, args) => {
+    if (args.storageIds.length > MAX_BATCH) {
+      throw new Error(`getUrls: batch size ${args.storageIds.length} exceeds max of ${MAX_BATCH}`);
+    }
     const result: Record<string, string | null> = {};
     await Promise.all(
       args.storageIds.map(async (id) => {
