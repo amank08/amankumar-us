@@ -20,9 +20,20 @@ export function PostCard({ post, thumbnailUrl }: PostCardProps) {
     <article className="group">
       <Link
         href={`/blog/${post.slug}`}
-        className="-mx-5 flex items-center gap-5 rounded-xl border border-transparent p-5 transition-all duration-300 hover:border-border hover:bg-surface/50 hover:shadow-[0_0_20px_rgba(79,143,255,0.06)]"
+        className="-mx-5 flex flex-col overflow-hidden rounded-xl border border-transparent transition-all duration-300 hover:border-border hover:bg-surface/50 hover:shadow-[0_0_20px_rgba(79,143,255,0.06)] sm:flex-row sm:items-center sm:gap-5 sm:p-5"
       >
-        <div className="min-w-0 flex-1">
+        {thumbnailUrl && (
+          <div className="relative aspect-[3/1] w-full shrink-0 overflow-hidden sm:order-2 sm:aspect-auto sm:h-20 sm:w-[120px] sm:rounded-lg">
+            <Image
+              src={thumbnailUrl}
+              alt={post.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, 120px"
+            />
+          </div>
+        )}
+        <div className="min-w-0 flex-1 p-5 sm:order-1 sm:p-0">
           <h2 className="text-xl font-semibold text-text-primary transition-colors group-hover:text-accent">
             {post.title}
           </h2>
@@ -47,18 +58,6 @@ export function PostCard({ post, thumbnailUrl }: PostCardProps) {
             )}
           </div>
         </div>
-
-        {thumbnailUrl && (
-          <div className="relative hidden h-20 w-[120px] shrink-0 overflow-hidden rounded-lg sm:block">
-            <Image
-              src={thumbnailUrl}
-              alt={post.title}
-              fill
-              className="object-cover"
-              sizes="120px"
-            />
-          </div>
-        )}
       </Link>
     </article>
   );
