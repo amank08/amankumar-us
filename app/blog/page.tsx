@@ -26,36 +26,45 @@ export default function BlogPage() {
         </p>
       </AnimateOnScroll>
 
-      <AnimateOnScroll variant="slide-up" delay={100} className="mt-10">
+      <div className="mt-10">
         {status === "LoadingFirstPage" ? (
-          <p className="text-text-muted">Loading...</p>
+          <AnimateOnScroll variant="fade-up" delay={100}>
+            <p className="text-text-muted">Loading...</p>
+          </AnimateOnScroll>
         ) : results.length === 0 ? (
-          <p className="text-text-muted">No posts yet. Check back soon!</p>
+          <AnimateOnScroll variant="fade-up" delay={100}>
+            <p className="text-text-muted">No posts yet. Check back soon!</p>
+          </AnimateOnScroll>
         ) : (
           <>
             <div className="space-y-1">
-              {results.map((post) => (
-                <PostCard
+              {results.map((post, i) => (
+                <AnimateOnScroll
                   key={post._id}
-                  post={post}
-                  thumbnailUrl={
-                    post.thumbnailId
-                      ? thumbnailUrls[post.thumbnailId]
-                      : undefined
-                  }
-                />
+                  variant="slide-up"
+                  delay={Math.min(i * 80, 400)}
+                >
+                  <PostCard
+                    post={post}
+                    thumbnailUrl={
+                      post.thumbnailId
+                        ? thumbnailUrls[post.thumbnailId]
+                        : undefined
+                    }
+                  />
+                </AnimateOnScroll>
               ))}
             </div>
 
             {status === "CanLoadMore" && (
-              <div className="mt-10 text-center">
+              <AnimateOnScroll variant="fade-up" className="mt-10 text-center">
                 <button
                   onClick={() => loadMore(10)}
                   className="rounded-lg border border-border px-6 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-accent/40 hover:bg-surface hover:text-text-primary"
                 >
                   Load more posts
                 </button>
-              </div>
+              </AnimateOnScroll>
             )}
 
             {status === "LoadingMore" && (
@@ -65,7 +74,7 @@ export default function BlogPage() {
             )}
           </>
         )}
-      </AnimateOnScroll>
+      </div>
     </div>
   );
 }
