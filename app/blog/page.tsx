@@ -3,20 +3,23 @@
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { PostCard } from "@/components/blog/PostCard";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 
 export default function BlogPage() {
   const posts = useQuery(api.posts.listPublished);
 
   return (
-    <div className="animate-fade-in-up mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-3xl font-bold tracking-tight text-text-primary">
-        Blog
-      </h1>
-      <p className="mt-2 text-text-secondary">
-        Thoughts on software engineering, tech, and things I&apos;m learning.
-      </p>
+    <div className="mx-auto max-w-5xl px-6 py-20">
+      <AnimateOnScroll variant="fade-up">
+        <h1 className="text-3xl font-bold tracking-tight text-text-primary">
+          Blog
+        </h1>
+        <p className="mt-2 text-text-secondary">
+          Thoughts on software engineering, tech, and things I&apos;m learning.
+        </p>
+      </AnimateOnScroll>
 
-      <div className="mt-10">
+      <AnimateOnScroll variant="slide-up" delay={100} className="mt-10">
         {posts === undefined ? (
           <p className="text-text-muted">Loading...</p>
         ) : posts.length === 0 ? (
@@ -28,7 +31,7 @@ export default function BlogPage() {
             ))}
           </div>
         )}
-      </div>
+      </AnimateOnScroll>
     </div>
   );
 }

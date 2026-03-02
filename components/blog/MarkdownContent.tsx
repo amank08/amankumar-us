@@ -8,7 +8,7 @@ import "highlight.js/styles/github-dark-dimmed.css";
 /** Renders markdown content with GFM support and syntax-highlighted code blocks. */
 export function MarkdownContent({ content }: { content: string }) {
   return (
-    <div className="prose prose-zinc max-w-none dark:prose-invert">
+    <div className="prose max-w-none">
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
         {content}
       </ReactMarkdown>

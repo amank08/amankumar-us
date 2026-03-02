@@ -3,7 +3,7 @@ import { Doc } from "@/convex/_generated/dataModel";
 
 export function ProjectCard({ project }: { project: Doc<"projects"> }) {
   return (
-    <article className="group rounded-xl border border-border bg-background p-6 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5">
+    <article className="group rounded-xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_4px_30px_rgba(79,143,255,0.1)]">
       <Link href={`/projects/${project.slug}`} className="block">
         <h2 className="text-lg font-semibold text-text-primary transition-colors group-hover:text-accent">
           {project.title}

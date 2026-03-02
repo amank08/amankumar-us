@@ -14,7 +14,7 @@ export function PostCard({ post }: { post: Doc<"posts"> }) {
     <article className="group">
       <Link
         href={`/blog/${post.slug}`}
-        className="-mx-5 block rounded-xl border border-transparent p-5 transition-all hover:border-border hover:bg-surface/50"
+        className="-mx-5 block rounded-xl border border-transparent p-5 transition-all duration-300 hover:border-border hover:bg-surface/50 hover:shadow-[0_0_20px_rgba(79,143,255,0.06)]"
       >
         <h2 className="text-xl font-semibold text-text-primary transition-colors group-hover:text-accent">
           {post.title}

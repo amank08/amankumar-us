@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { Header } from "@/components/layout/Header";
@@ -29,20 +28,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ConvexClientProvider>
-            <Header />
-            <main className="min-h-[calc(100vh-8rem)]">{children}</main>
-            <Footer />
-            <Suspense>
-              <ToastProvider />
-            </Suspense>
-          </ConvexClientProvider>
-        </ThemeProvider>
+        <ConvexClientProvider>
+          <Header />
+          <main className="min-h-[calc(100vh-8rem)]">{children}</main>
+          <Footer />
+          <Suspense>
+            <ToastProvider />
+          </Suspense>
+        </ConvexClientProvider>
       </body>
     </html>
   );
