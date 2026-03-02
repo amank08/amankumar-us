@@ -34,7 +34,7 @@ export default function Home() {
         {/* Hero content */}
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
           <p className="animate-text-reveal text-sm font-medium uppercase tracking-widest text-accent sm:text-base">
-            Tech &middot; Code &middot; Ideas
+            Software Engineer
           </p>
 
           <h1 className="animate-text-reveal mt-6 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl [animation-delay:150ms]">
