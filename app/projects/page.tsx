@@ -1,12 +1,19 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { usePaginatedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { useThumbnailUrls } from "@/hooks/useThumbnailUrls";
 
 export default function ProjectsPage() {
-  const projects = useQuery(api.projects.listPublished);
+  const { results, status, loadMore } = usePaginatedQuery(
+    api.projects.listPublishedPaginated,
+    {},
+    { initialNumItems: 9 }
+  );
+
+  const thumbnailUrls = useThumbnailUrls(results);
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
@@ -20,18 +27,45 @@ export default function ProjectsPage() {
       </AnimateOnScroll>
 
       <AnimateOnScroll variant="slide-up" delay={100} className="mt-10">
-        {projects === undefined ? (
+        {status === "LoadingFirstPage" ? (
           <p className="text-text-muted">Loading...</p>
-        ) : projects.length === 0 ? (
+        ) : results.length === 0 ? (
           <p className="text-text-muted">
             No projects yet. Check back soon!
           </p>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2">
-            {projects.map((project) => (
-              <ProjectCard key={project._id} project={project} />
-            ))}
-          </div>
+          <>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {results.map((project) => (
+                <ProjectCard
+                  key={project._id}
+                  project={project}
+                  thumbnailUrl={
+                    project.thumbnailId
+                      ? thumbnailUrls[project.thumbnailId]
+                      : undefined
+                  }
+                />
+              ))}
+            </div>
+
+            {status === "CanLoadMore" && (
+              <div className="mt-10 text-center">
+                <button
+                  onClick={() => loadMore(9)}
+                  className="rounded-lg border border-border px-6 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-accent/40 hover:bg-surface hover:text-text-primary"
+                >
+                  Load more projects
+                </button>
+              </div>
+            )}
+
+            {status === "LoadingMore" && (
+              <p className="mt-10 text-center text-sm text-text-muted">
+                Loading more...
+              </p>
+            )}
+          </>
         )}
       </AnimateOnScroll>
     </div>

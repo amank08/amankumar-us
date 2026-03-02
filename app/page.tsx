@@ -6,6 +6,7 @@ import { api } from "@/convex/_generated/api";
 import { PostCard } from "@/components/blog/PostCard";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { useThumbnailUrls } from "@/hooks/useThumbnailUrls";
 
 export default function Home() {
   const posts = useQuery(api.posts.listPublished);
@@ -13,6 +14,9 @@ export default function Home() {
 
   const recentPosts = posts?.slice(0, 3);
   const featuredProjects = projects?.slice(0, 3);
+
+  const postThumbnailUrls = useThumbnailUrls(recentPosts);
+  const projectThumbnailUrls = useThumbnailUrls(featuredProjects);
 
   return (
     <>
@@ -104,7 +108,15 @@ export default function Home() {
           ) : (
             <div className="space-y-1">
               {recentPosts.map((post) => (
-                <PostCard key={post._id} post={post} />
+                <PostCard
+                  key={post._id}
+                  post={post}
+                  thumbnailUrl={
+                    post.thumbnailId
+                      ? postThumbnailUrls[post.thumbnailId]
+                      : undefined
+                  }
+                />
               ))}
             </div>
           )}
@@ -134,7 +146,15 @@ export default function Home() {
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featuredProjects.map((project) => (
-                <ProjectCard key={project._id} project={project} />
+                <ProjectCard
+                  key={project._id}
+                  project={project}
+                  thumbnailUrl={
+                    project.thumbnailId
+                      ? projectThumbnailUrls[project.thumbnailId]
+                      : undefined
+                  }
+                />
               ))}
             </div>
           )}
