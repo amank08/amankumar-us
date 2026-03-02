@@ -167,6 +167,27 @@ body {
   animation: scroll-bounce 2s ease-in-out infinite;
 }
 
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--surface-hover) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
 /* ── Accessibility: respect reduced-motion preference ── */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
@@ -179,7 +200,8 @@ body {
     filter: none !important;
   }
 
-  .animate-scroll-bounce {
+  .animate-scroll-bounce,
+  .animate-shimmer {
     animation: none !important;
   }
 }
