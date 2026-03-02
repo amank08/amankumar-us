@@ -18,7 +18,6 @@ export function ThumbnailUpload({
   onRemove,
 }: ThumbnailUploadProps) {
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
-  const deleteFile = useMutation(api.files.deleteFile);
 
   const thumbnailUrl = useQuery(
     api.files.getUrl,
@@ -39,6 +38,10 @@ export function ThumbnailUpload({
         headers: { "Content-Type": file.type },
         body: file,
       });
+      if (!result.ok) {
+        const text = await result.text();
+        throw new Error(`Upload failed (${result.status}): ${text}`);
+      }
       const { storageId } = await result.json();
       onUpload(storageId as Id<"_storage">);
     } catch (error) {
@@ -50,14 +53,7 @@ export function ThumbnailUpload({
     }
   }
 
-  async function handleRemove() {
-    if (currentThumbnailId) {
-      try {
-        await deleteFile({ storageId: currentThumbnailId });
-      } catch {
-        // File might already be deleted — that's fine
-      }
-    }
+  function handleRemove() {
     onRemove();
   }
 
