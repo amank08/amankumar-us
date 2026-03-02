@@ -7,10 +7,15 @@ import { CommentSection } from "@/components/blog/CommentSection";
 import { MarkdownContent } from "@/components/blog/MarkdownContent";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = useQuery(api.posts.getBySlug, { slug });
+  const thumbnailUrl = useQuery(
+    api.files.getUrl,
+    post?.thumbnailId ? { storageId: post.thumbnailId } : "skip"
+  );
 
   if (post === undefined) {
     return (
@@ -77,6 +82,19 @@ export default function BlogPostPage() {
               )}
             </div>
           </header>
+
+          {thumbnailUrl && (
+            <div className="relative mb-8 aspect-[768/400] w-full overflow-hidden rounded-xl">
+              <Image
+                src={thumbnailUrl}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
+          )}
 
           <MarkdownContent content={post.content} />
         </article>

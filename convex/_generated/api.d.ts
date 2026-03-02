@@ -10,6 +10,7 @@
 
 import type * as about from "../about.js";
 import type * as comments from "../comments.js";
+import type * as files from "../files.js";
 import type * as lib_auth from "../lib/auth.js";
 import type * as posts from "../posts.js";
 import type * as projects from "../projects.js";
@@ -24,6 +25,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   about: typeof about;
   comments: typeof comments;
+  files: typeof files;
   "lib/auth": typeof lib_auth;
   posts: typeof posts;
   projects: typeof projects;

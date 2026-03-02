@@ -5,10 +5,15 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProjectDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const project = useQuery(api.projects.getBySlug, { slug });
+  const thumbnailUrl = useQuery(
+    api.files.getUrl,
+    project?.thumbnailId ? { storageId: project.thumbnailId } : "skip"
+  );
 
   if (project === undefined) {
     return (
@@ -85,6 +90,19 @@ export default function ProjectDetailPage() {
               )}
             </div>
           </header>
+
+          {thumbnailUrl && (
+            <div className="relative mb-8 aspect-[768/400] w-full overflow-hidden rounded-xl">
+              <Image
+                src={thumbnailUrl}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
+          )}
 
           {project.longDescription && (
             <div className="prose max-w-none">

@@ -22,6 +22,7 @@ export default defineSchema({
     publishedAt: v.optional(v.number()),
     updatedAt: v.optional(v.number()),
     tags: v.optional(v.array(v.string())),
+    thumbnailId: v.optional(v.id("_storage")),
   })
     .index("by_slug", ["slug"])
     .index("by_published", ["isPublished", "publishedAt"])
@@ -36,6 +37,7 @@ export default defineSchema({
     repoUrl: v.optional(v.string()),
     imageUrl: v.optional(v.string()),
     techStack: v.array(v.string()),
+    thumbnailId: v.optional(v.id("_storage")),
     isPublished: v.boolean(),
     sortOrder: v.optional(v.number()),
     publishedAt: v.optional(v.number()),

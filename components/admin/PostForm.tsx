@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
-import { Doc } from "@/convex/_generated/dataModel";
+import { Doc, Id } from "@/convex/_generated/dataModel";
+import { ThumbnailUpload } from "./ThumbnailUpload";
 
 function toSlug(title: string) {
   return title
@@ -24,6 +25,9 @@ export function PostForm({ post }: { post?: Doc<"posts"> }) {
   const [excerpt, setExcerpt] = useState(post?.excerpt ?? "");
   const [tags, setTags] = useState(post?.tags?.join(", ") ?? "");
   const [isPublished, setIsPublished] = useState(post?.isPublished ?? false);
+  const [thumbnailId, setThumbnailId] = useState<Id<"_storage"> | undefined>(
+    post?.thumbnailId
+  );
   const [saving, setSaving] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -44,6 +48,7 @@ export function PostForm({ post }: { post?: Doc<"posts"> }) {
           content,
           excerpt: excerpt || undefined,
           tags: parsedTags.length > 0 ? parsedTags : undefined,
+          thumbnailId,
           isPublished,
         });
       } else {
@@ -53,6 +58,7 @@ export function PostForm({ post }: { post?: Doc<"posts"> }) {
           content,
           excerpt: excerpt || undefined,
           tags: parsedTags.length > 0 ? parsedTags : undefined,
+          thumbnailId,
           isPublished,
         });
       }
@@ -106,6 +112,12 @@ export function PostForm({ post }: { post?: Doc<"posts"> }) {
           className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-zinc-900 focus:border-zinc-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
         />
       </div>
+
+      <ThumbnailUpload
+        currentThumbnailId={thumbnailId}
+        onUpload={(id) => setThumbnailId(id)}
+        onRemove={() => setThumbnailId(undefined)}
+      />
 
       <div>
         <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">

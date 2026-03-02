@@ -1,4 +1,5 @@
 import { mutation, query } from "./_generated/server";
+import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
 import { requireAdmin } from "./lib/auth";
 
@@ -10,6 +11,17 @@ export const listPublished = query({
       .withIndex("by_published", (q) => q.eq("isPublished", true))
       .order("asc")
       .collect();
+  },
+});
+
+export const listPublishedPaginated = query({
+  args: { paginationOpts: paginationOptsValidator },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("projects")
+      .withIndex("by_published", (q) => q.eq("isPublished", true))
+      .order("asc")
+      .paginate(args.paginationOpts);
   },
 });
 
@@ -44,6 +56,7 @@ export const create = mutation({
     repoUrl: v.optional(v.string()),
     imageUrl: v.optional(v.string()),
     techStack: v.array(v.string()),
+    thumbnailId: v.optional(v.id("_storage")),
     isPublished: v.boolean(),
     sortOrder: v.optional(v.number()),
   },
@@ -69,6 +82,7 @@ export const update = mutation({
     repoUrl: v.optional(v.string()),
     imageUrl: v.optional(v.string()),
     techStack: v.optional(v.array(v.string())),
+    thumbnailId: v.optional(v.id("_storage")),
     isPublished: v.optional(v.boolean()),
     sortOrder: v.optional(v.number()),
   },
