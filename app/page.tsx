@@ -45,8 +45,8 @@ export default function Home() {
           </h1>
 
           <p className="animate-text-reveal mx-auto mt-6 max-w-2xl text-lg text-text-secondary sm:text-xl [animation-delay:300ms]">
-            Welcome to my corner of the internet. I write about software
-            engineering, share projects I&apos;m working on, and think out loud.
+            Welcome to my corner of the internet. I&apos;m into tech, building
+            things, and thinking out loud about ideas that interest me.
           </p>
 
           <div className="animate-text-reveal mt-10 flex flex-wrap justify-center gap-4 [animation-delay:450ms]">
