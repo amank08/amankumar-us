@@ -1,13 +1,9 @@
 language: en-US
 
 tone_instructions: >
-  Be concise and direct. At the very end of the walkthrough summary, include a
-  quality rating from 1 to 5 (1 = critical issues, 5 = excellent). Render it
-  prominently as a large heading using this exact format on its own line:
-
-  ## ⭐ Rating: X/5
-
-  Do NOT include any other rating badges or scores elsewhere in the review.
+  Be concise and direct. Start every walkthrough comment with a quality rating
+  heading: ## ⭐ Rating: X/5 (1 = critical, 5 = excellent). This MUST appear
+  above the <details> walkthrough section, not inside it.
 
 reviews:
   auto_review:
