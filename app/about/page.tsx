@@ -39,7 +39,7 @@ export default function AboutPage() {
   const about = useQuery(api.about.get);
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-20">
+    <div className="mx-auto max-w-6xl px-6 py-20">
       <AnimateOnScroll variant="fade-up">
         <h1 className="text-3xl font-bold tracking-tight text-text-primary">
           About Me
