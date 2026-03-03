@@ -124,10 +124,12 @@ export default function Home() {
       </section>
 
       {/* ── Section divider ── */}
-      <div className="flex items-center justify-center gap-3 py-6">
-        <span className="h-1 w-1 rounded-full bg-text-muted/30" />
-        <span className="h-1.5 w-1.5 rounded-full bg-text-muted/40" />
-        <span className="h-1 w-1 rounded-full bg-text-muted/30" />
+      <div className="flex items-center justify-center gap-3 py-10">
+        <span className="h-px w-32 bg-gradient-to-r from-transparent to-accent/30 sm:w-48" />
+        <span className="h-1 w-1 rounded-full bg-accent/40" />
+        <span className="h-1.5 w-1.5 rounded-full bg-accent/60" />
+        <span className="h-1 w-1 rounded-full bg-accent/40" />
+        <span className="h-px w-32 bg-gradient-to-l from-transparent to-accent/30 sm:w-48" />
       </div>
 
       {/* ── Featured Projects ── */}
