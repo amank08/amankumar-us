@@ -87,9 +87,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Section divider ── */}
-      <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-border to-transparent" />
-
       {/* ── Recent Posts ── */}
       <section className="bg-background py-24">
         <AnimateOnScroll variant="slide-up" className="mx-auto max-w-6xl px-6">
@@ -127,10 +124,14 @@ export default function Home() {
       </section>
 
       {/* ── Section divider ── */}
-      <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-border to-transparent" />
+      <div className="flex items-center justify-center gap-3 py-6">
+        <span className="h-1 w-1 rounded-full bg-text-muted/30" />
+        <span className="h-1.5 w-1.5 rounded-full bg-text-muted/40" />
+        <span className="h-1 w-1 rounded-full bg-text-muted/30" />
+      </div>
 
       {/* ── Featured Projects ── */}
-      <section className="bg-surface-alt py-24">
+      <section className="py-24">
         <AnimateOnScroll variant="slide-up" className="mx-auto max-w-6xl px-6">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-text-primary">
