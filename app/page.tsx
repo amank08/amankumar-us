@@ -87,8 +87,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Section divider ── */}
+      <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-border to-transparent" />
+
       {/* ── Recent Posts ── */}
-      <section className="bg-background py-20">
+      <section className="bg-background py-24">
         <AnimateOnScroll variant="slide-up" className="mx-auto max-w-6xl px-6">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-text-primary">
@@ -123,8 +126,11 @@ export default function Home() {
         </AnimateOnScroll>
       </section>
 
+      {/* ── Section divider ── */}
+      <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-border to-transparent" />
+
       {/* ── Featured Projects ── */}
-      <section className="bg-surface-alt py-20">
+      <section className="bg-surface-alt py-24">
         <AnimateOnScroll variant="slide-up" className="mx-auto max-w-6xl px-6">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-text-primary">
