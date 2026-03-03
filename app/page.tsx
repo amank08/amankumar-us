@@ -32,7 +32,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(5,5,8,0.6)_100%)]" />
 
         {/* Hero content */}
-        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
           <p className="animate-text-reveal text-sm font-medium uppercase tracking-widest text-accent sm:text-base">
             Software Engineer
           </p>
@@ -89,7 +89,7 @@ export default function Home() {
 
       {/* ── Recent Posts ── */}
       <section className="bg-background py-20">
-        <AnimateOnScroll variant="slide-up" className="mx-auto max-w-5xl px-6">
+        <AnimateOnScroll variant="slide-up" className="mx-auto max-w-6xl px-6">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-text-primary">
               Recent Posts
@@ -125,7 +125,7 @@ export default function Home() {
 
       {/* ── Featured Projects ── */}
       <section className="bg-surface-alt py-20">
-        <AnimateOnScroll variant="slide-up" className="mx-auto max-w-5xl px-6">
+        <AnimateOnScroll variant="slide-up" className="mx-auto max-w-6xl px-6">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-text-primary">
               Projects
