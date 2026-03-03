@@ -33,7 +33,13 @@ export default function BlogPage() {
           </AnimateOnScroll>
         ) : results.length === 0 ? (
           <AnimateOnScroll variant="fade-up" delay={100}>
-            <p className="text-text-muted">No posts yet. Check back soon!</p>
+            <div className="flex flex-col items-center py-16 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="h-16 w-16 text-text-muted/40">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+              </svg>
+              <p className="mt-4 text-lg font-medium text-text-secondary">No posts yet</p>
+              <p className="mt-1 text-sm text-text-muted">New articles are on the way — check back soon.</p>
+            </div>
           </AnimateOnScroll>
         ) : (
           <>
