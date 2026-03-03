@@ -1,9 +1,6 @@
 language: en-US
 
-tone_instructions: >
-  Be concise and direct. Start every walkthrough comment with a quality rating
-  heading: ## ⭐ Rating: X/5 (1 = critical, 5 = excellent). This MUST appear
-  above the <details> walkthrough section, not inside it.
+tone_instructions: "Be concise and direct. Focus on actionable feedback."
 
 reviews:
   auto_review:
