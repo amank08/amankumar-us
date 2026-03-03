@@ -17,9 +17,44 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://amankumar.us";
+
 export const metadata: Metadata = {
-  title: "Aman Kumar",
-  description: "Personal website, blog, and portfolio of Aman Kumar.",
+  title: {
+    default: "Aman Kumar",
+    template: "%s | Aman Kumar",
+  },
+  description:
+    "Personal website, blog, and portfolio of Aman Kumar — software engineer writing about tech, ideas, and building things.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "Aman Kumar",
+    description:
+      "Personal website, blog, and portfolio of Aman Kumar — software engineer writing about tech, ideas, and building things.",
+    url: siteUrl,
+    siteName: "Aman Kumar",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "Aman Kumar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aman Kumar",
+    description:
+      "Personal website, blog, and portfolio of Aman Kumar.",
+    images: ["/og-image.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
