@@ -35,21 +35,12 @@ export const metadata: Metadata = {
     siteName: "Aman Kumar",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/og-image.svg",
-        width: 1200,
-        height: 630,
-        alt: "Aman Kumar",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Aman Kumar",
     description:
       "Personal website, blog, and portfolio of Aman Kumar.",
-    images: ["/og-image.svg"],
   },
   robots: {
     index: true,
