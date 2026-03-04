@@ -33,9 +33,13 @@ export default function ProjectsPage() {
           </AnimateOnScroll>
         ) : results.length === 0 ? (
           <AnimateOnScroll variant="fade-up" delay={100}>
-            <p className="text-text-muted">
-              No projects yet. Check back soon!
-            </p>
+            <div className="flex flex-col items-center py-16 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="h-16 w-16 text-text-muted/40">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+              </svg>
+              <p className="mt-4 text-lg font-medium text-text-secondary">No projects yet</p>
+              <p className="mt-1 text-sm text-text-muted">Projects are in the works — check back soon.</p>
+            </div>
           </AnimateOnScroll>
         ) : (
           <>
