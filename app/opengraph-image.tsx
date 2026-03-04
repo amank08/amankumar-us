@@ -5,6 +5,7 @@ export const alt = "Aman Kumar";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/** Generates a 1200x630 PNG Open Graph image for social media link previews. */
 export default function OGImage() {
   return new ImageResponse(
     (

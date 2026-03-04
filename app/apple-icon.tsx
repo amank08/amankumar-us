@@ -4,6 +4,7 @@ export const runtime = "edge";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
+/** Generates a 180x180 PNG apple-touch-icon for iOS link previews and home screen bookmarks. */
 export default function AppleIcon() {
   return new ImageResponse(
     (
