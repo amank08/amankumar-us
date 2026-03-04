@@ -71,6 +71,131 @@ body {
   --tw-prose-hr: var(--border);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
+  line-height: 1.8;
+}
+
+.prose p {
+  margin-block: 1.25em;
+}
+
+/* Blockquotes: accent left border + subtle background tint */
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-glow);
+  border-radius: 0 8px 8px 0;
+  padding: 1em 1.25em;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.prose blockquote p:first-child {
+  margin-top: 0;
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Unordered list bullets: accent-colored */
+.prose ul {
+  list-style: none;
+  padding-left: 1.5em;
+}
+
+.prose ul > li {
+  position: relative;
+}
+
+.prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.25em;
+  top: 0.75em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Ordered list numbers: accent-colored */
+.prose ol {
+  list-style: none;
+  padding-left: 1.5em;
+  counter-reset: prose-counter;
+}
+
+.prose ol > li {
+  position: relative;
+  counter-increment: prose-counter;
+}
+
+.prose ol > li::before {
+  content: counter(prose-counter) ".";
+  position: absolute;
+  left: -1.5em;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+/* Tables: styled borders + alternating row colors */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.prose thead th {
+  background: var(--surface);
+  color: var(--text-primary);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose tbody td {
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose tbody tr:nth-child(even) {
+  background: var(--surface);
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Horizontal rules: decorative gradient divider */
+.prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent-muted), transparent);
+  margin: 2.5em 0;
+}
+
+/* Inline code: subtle background pill */
+.prose :not(pre) > code {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+}
+
+/* Links: underline on hover */
+.prose a {
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.prose a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ── Animations ── */
