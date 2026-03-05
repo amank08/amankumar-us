@@ -7,6 +7,7 @@ interface PostCardProps {
   thumbnailUrl?: string | null;
 }
 
+/** Renders a blog post card with thumbnail, title, excerpt, and tags. */
 export function PostCard({ post, thumbnailUrl }: PostCardProps) {
   const date = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("en-US", {
@@ -20,7 +21,7 @@ export function PostCard({ post, thumbnailUrl }: PostCardProps) {
     <article className="group">
       <Link
         href={`/blog/${post.slug}`}
-        className="-mx-5 flex flex-col overflow-hidden rounded-xl border border-transparent transition-all duration-300 hover:border-border hover:bg-surface/50 hover:shadow-[0_0_20px_rgba(79,143,255,0.06)] sm:flex-row sm:items-center sm:gap-5 sm:p-5"
+        className="-mx-5 flex flex-col overflow-hidden rounded-xl border border-transparent transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-surface/50 hover:shadow-[0_4px_30px_rgba(79,143,255,0.1)] motion-reduce:hover:translate-y-0 motion-reduce:transition-none sm:flex-row sm:items-center sm:gap-5 sm:p-5"
       >
         {thumbnailUrl && (
           <div className="relative aspect-[3/1] w-full shrink-0 overflow-hidden sm:order-2 sm:aspect-auto sm:h-20 sm:w-[120px] sm:rounded-lg">
